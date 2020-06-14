@@ -64,3 +64,4 @@ crashlytics-build.properties
 # Blend project
 !Blend.sln
 !Blend.csproj
+Star Colonist/Temp/UnityLockfile
