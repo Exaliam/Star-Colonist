@@ -274,7 +274,7 @@ GameObject:
   - component: {fileID: 2093253004}
   - component: {fileID: 2093253003}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Hex Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
