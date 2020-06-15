@@ -40,14 +40,6 @@ public class HexGrid : MonoBehaviour
         hexMesh.Triangulate(cells);
     }
 
-    private void Update()
-    {
-        if(Input.GetMouseButton(0))
-        {
-            HandleInput();
-        }
-    }
-
     void CreateCell(int x, int z, int i)
     {
         Vector3 position;
@@ -67,23 +59,13 @@ public class HexGrid : MonoBehaviour
         label.text = cell.coordinates.ToStringOnSeparateLines();
     }
 
-    void HandleInput()
-    {
-        Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if(Physics.Raycast(inputRay, out hit))
-        {
-            TouchCell(hit.point);
-        }
-    }
-
-    void TouchCell(Vector3 position)
+    public void ColorCell(Vector3 position, Color color)
     {
         position = transform.InverseTransformPoint(position);
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
         int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2; //convert the cell coordinates to an array index
         HexCell cell = cells[index];
-        cell.color = touchedColor; //change color and then re-triangulate the mesh
+        cell.color = color; //change color and then re-triangulate the mesh
         hexMesh.Triangulate(cells);
         Debug.Log("touched at " + coordinates.ToString());
     }
