@@ -12,13 +12,15 @@ public class HexGrid : MonoBehaviour
     [Header("Prefabs")]
     public HexCell cellPrefab;
     public Text cellLabelPrefab;
-
-    HexCell[] cells;
+    //References
     Canvas gridCanvas;
+    HexMesh hexMesh;
+    HexCell[] cells;
 
     private void Awake()
     {
         gridCanvas = GetComponentInChildren<Canvas>();
+        hexMesh = GetComponentInChildren<HexMesh>();
         cells = new HexCell[height * width];
 
         for (int z = 0, i = 0; z < height; z++) // i = index number
@@ -28,6 +30,11 @@ public class HexGrid : MonoBehaviour
                 CreateCell(x, z, i++);
             }
         }
+    }
+
+    private void Start()
+    {
+        hexMesh.Triangulate(cells);
     }
 
     void CreateCell(int x, int z, int i)
