@@ -75,7 +75,7 @@ public class HexGrid : MonoBehaviour
 
                 if(x < width - 1)
                 {
-                    cell.SetNeighbor(HexDirection.SE, cells[i - width - 1]);
+                    cell.SetNeighbor(HexDirection.SE, cells[i - width + 1]);
                 }
             }
         }
