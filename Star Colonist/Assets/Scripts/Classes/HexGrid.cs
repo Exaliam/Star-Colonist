@@ -5,8 +5,11 @@ using UnityEngine.UI;
 
 public class HexGrid : MonoBehaviour
 {
+    [Header("Coordinates")]
     public int width = 6;
     public int height = 6;
+    [SerializeField] private float offset = 0.5f;
+    [Header("Prefabs")]
     public HexCell cellPrefab;
     public Text cellLabelPrefab;
 
@@ -30,9 +33,9 @@ public class HexGrid : MonoBehaviour
     void CreateCell(int x, int z, int i)
     {
         Vector3 position;
-        position.x = x * 10f;
+        position.x = (x + z * offset - z / 2) * (HexMetrics.innerRadius * 2f);
         position.y = 0f;
-        position.z = z * 10f;
+        position.z = z * HexMetrics.outerRadius * 1.5f;
 
         HexCell cell = cells[i] = Instantiate<HexCell>(cellPrefab);
         cell.transform.SetParent(transform, false);
