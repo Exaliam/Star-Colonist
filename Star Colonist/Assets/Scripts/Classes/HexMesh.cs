@@ -153,6 +153,7 @@ public class HexMesh : MonoBehaviour
         Vector3 bridge = HexMetrics.GetBridge(direction);
         Vector3 v3 = v1 + bridge;
         Vector3 v4 = v2 + bridge;
+        v3.y = v4.y = neighbor.Elevation * HexMetrics.elevationStep; //sloping birdge connections
         AddQuad(v1, v2, v3, v4);
         AddQuadColor(cell.color, neighbor.color);
         //filling the triangle holes
@@ -160,7 +161,9 @@ public class HexMesh : MonoBehaviour
 
         if(direction <= HexDirection.E && nextNeighbor != null) //gets rid of overlapping triangles and outside map triangles
         {
-            AddTriangle(v2, v4, v2 + HexMetrics.GetBridge(direction.Next()));
+            Vector3 v5 = v2 + HexMetrics.GetBridge(direction.Next()); //sloping triangles
+            v5.y = nextNeighbor.Elevation * HexMetrics.elevationStep; // connections
+            AddTriangle(v2, v4, v5);
             AddTriangleColor(cell.color, neighbor.color, nextNeighbor.color);
         }
     }
