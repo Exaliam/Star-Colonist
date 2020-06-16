@@ -149,15 +149,23 @@ public class HexMesh : MonoBehaviour
         {
             return;
         }
+
         //actual brdiges creation
         Vector3 bridge = HexMetrics.GetBridge(direction);
         Vector3 v3 = v1 + bridge;
         Vector3 v4 = v2 + bridge;
-        v3.y = v4.y = neighbor.Elevation * HexMetrics.elevationStep; //sloping birdge connections
+        v3.y = v4.y = neighbor.Elevation * HexMetrics.elevationStep; //sloping bridge connections
 
-        TriangulateEdgeTerraces(v1, v2, cell, v3, v4, neighbor);
-        //AddQuad(v1, v2, v3, v4);
-        //AddQuadColor(cell.color, neighbor.color);
+        if(cell.GetEdgeType(direction) == HexEdgeType.Slope)
+        {
+            TriangulateEdgeTerraces(v1, v2, cell, v3, v4, neighbor);
+        }
+        else
+        {
+            AddQuad(v1, v2, v3, v4);
+            AddQuadColor(cell.color, neighbor.color);
+        }
+
         //filling the triangle holes
         HexCell nextNeighbor = cell.GetNeighbor(direction.Next());
 
