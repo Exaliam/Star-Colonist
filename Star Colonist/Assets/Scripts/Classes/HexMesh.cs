@@ -55,8 +55,8 @@ public class HexMesh : MonoBehaviour
         AddTriangle
         (
             center, 
-            center + HexMetrics.GetFirstCorner(direction), 
-            center + HexMetrics.GetSecondCorner(direction)
+            center + HexMetrics.GetFirstSolidCorner(direction), 
+            center + HexMetrics.GetSecondSolidCorner(direction)
         );
 
         HexCell prevNeighbor = cell.GetNeighbor(direction.Previous()) ?? cell;
