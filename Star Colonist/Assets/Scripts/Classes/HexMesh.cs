@@ -149,11 +149,19 @@ public class HexMesh : MonoBehaviour
         {
             return;
         }
-
+        //actual brdiges creation
         Vector3 bridge = HexMetrics.GetBridge(direction);
         Vector3 v3 = v1 + bridge;
         Vector3 v4 = v2 + bridge;
         AddQuad(v1, v2, v3, v4);
         AddQuadColor(cell.color, neighbor.color);
+        //filling the triangle holes
+        HexCell nextNeighbor = cell.GetNeighbor(direction.Next());
+
+        if(direction <= HexDirection.E && nextNeighbor != null) //gets rid of overlapping triangles and outside map triangles
+        {
+            AddTriangle(v2, v4, v2 + HexMetrics.GetBridge(direction.Next()));
+            AddTriangleColor(cell.color, neighbor.color, nextNeighbor.color);
+        }
     }
 }
