@@ -87,14 +87,16 @@ public class HexGrid : MonoBehaviour
         label.text = cell.coordinates.ToStringOnSeparateLines();
     }
 
-    public void ColorCell(Vector3 position, Color color)
+    public HexCell GetCell(Vector3 position)
     {
         position = transform.InverseTransformPoint(position);
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
         int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2; //convert the cell coordinates to an array index
-        HexCell cell = cells[index];
-        cell.color = color; //change color and then re-triangulate the mesh
+        return cells[index];
+    }
+
+    public void Referesh()
+    {
         hexMesh.Triangulate(cells);
-        Debug.Log("touched at " + coordinates.ToString());
     }
 }

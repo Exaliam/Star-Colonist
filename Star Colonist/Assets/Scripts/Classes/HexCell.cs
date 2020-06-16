@@ -7,6 +7,7 @@ public class HexCell : MonoBehaviour
     public HexCoordinates coordinates;
     public Color color;
     [SerializeField] HexCell[] neighbors;
+    public int elevation;
 
     public HexCell GetNeighbor (HexDirection direction)
     {
