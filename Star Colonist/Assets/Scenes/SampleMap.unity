@@ -2216,7 +2216,7 @@ MonoBehaviour:
   cellLabelPrefab: {fileID: 665214300862555070, guid: ce0ac13297f504a45b6cca91d7d143e1,
     type: 3}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  touchedColor: {r: 1, g: 0, b: 1, a: 1}
+  noiseSource: {fileID: 2800000, guid: a19768d18701c7c41b39fa378da44b2e, type: 3}
 --- !u!4 &2093253004
 Transform:
   m_ObjectHideFlags: 0

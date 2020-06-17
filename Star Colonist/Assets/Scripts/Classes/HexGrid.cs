@@ -12,9 +12,9 @@ public class HexGrid : MonoBehaviour
     [Header("Prefabs")]
     public HexCell cellPrefab;
     public Text cellLabelPrefab;
-    [Header("Colors")]
+    [Header("Shapes and colors")]
     public Color defaultColor = Color.white;
-    public Color touchedColor = Color.magenta;
+    public Texture2D noiseSource;
     //References
     Canvas gridCanvas;
     HexMesh hexMesh;
@@ -33,6 +33,11 @@ public class HexGrid : MonoBehaviour
                 CreateCell(x, z, i++);
             }
         }
+    }
+
+    private void OnEnable()
+    {
+        HexMetrics.noiseSource = noiseSource;
     }
 
     private void Start()
