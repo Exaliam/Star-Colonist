@@ -91,6 +91,7 @@ public class HexGrid : MonoBehaviour
         label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
         label.text = cell.coordinates.ToStringOnSeparateLines();
         cell.uiRect = label.rectTransform;
+        cell.Elevation = 0;
     }
 
     public HexCell GetCell(Vector3 position)

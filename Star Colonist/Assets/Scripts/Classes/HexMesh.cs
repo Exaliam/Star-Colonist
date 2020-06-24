@@ -50,7 +50,7 @@ public class HexMesh : MonoBehaviour
 
     void Triangulate(HexDirection direction, HexCell cell)
     {
-        Vector3 center = cell.transform.localPosition;
+        Vector3 center = cell.Position;
         Vector3 v1 = center + HexMetrics.GetFirstSolidCorner(direction);
         Vector3 v2 = center + HexMetrics.GetSecondSolidCorner(direction);
 
@@ -154,7 +154,7 @@ public class HexMesh : MonoBehaviour
         Vector3 bridge = HexMetrics.GetBridge(direction);
         Vector3 v3 = v1 + bridge;
         Vector3 v4 = v2 + bridge;
-        v3.y = v4.y = neighbor.Elevation * HexMetrics.elevationStep; //sloping bridge connections
+        v3.y = v4.y = neighbor.Position.y; //sloping bridge connections
 
         if(cell.GetEdgeType(direction) == HexEdgeType.Slope)
         {
@@ -172,7 +172,7 @@ public class HexMesh : MonoBehaviour
         if(direction <= HexDirection.E && nextNeighbor != null) //gets rid of overlapping triangles and outside map triangles
         {
             Vector3 v5 = v2 + HexMetrics.GetBridge(direction.Next()); //sloping triangles
-            v5.y = nextNeighbor.Elevation * HexMetrics.elevationStep; // connections
+            v5.y = nextNeighbor.Position.y; // connections
             
             if(cell.Elevation <= neighbor.Elevation)
             {
