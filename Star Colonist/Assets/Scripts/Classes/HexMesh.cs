@@ -76,6 +76,17 @@ public class HexMesh : MonoBehaviour
         triangles.Add(vertexIndex + 2);
     }
 
+    void AddTriangleUnperturbed (Vector3 v1, Vector3 v2, Vector3 v3)
+    {
+        int vertexIndex = vertices.Count;
+        vertices.Add(v1);
+        vertices.Add(v2);
+        vertices.Add(v3);
+        triangles.Add(vertexIndex);
+        triangles.Add(vertexIndex + 1);
+        triangles.Add(vertexIndex + 2);
+    }
+
     void AddTriangleColor(Color color)
     {
         colors.Add(color);
@@ -279,7 +290,7 @@ public class HexMesh : MonoBehaviour
             boundaryPoint = -boundaryPoint;
         }
 
-        Vector3 boundary = Vector3.Lerp(begin, right, boundaryPoint);
+        Vector3 boundary = Vector3.Lerp(Perturb(begin), Perturb(right), boundaryPoint);
         Color boundaryColor = Color.Lerp(beginCell.color, rightCell.color, boundaryPoint);
 
         TriangulateBoundaryTriangle(begin, beginCell, left, leftCell, boundary, boundaryColor);
@@ -297,23 +308,23 @@ public class HexMesh : MonoBehaviour
 
     void TriangulateBoundaryTriangle(Vector3 begin, HexCell beginCell, Vector3 left, HexCell leftCell, Vector3 boundary, Color boundaryColor)
     {
-        Vector3 v2 = HexMetrics.TerraceLerp(begin, left, 1);
+        Vector3 v2 = Perturb(HexMetrics.TerraceLerp(begin, left, 1));
         Color c2 = HexMetrics.TerraceLerp(beginCell.color, leftCell.color, 1);
 
-        AddTriangle(begin, v2, boundary);
+        AddTriangleUnperturbed(Perturb(begin), v2, boundary);
         AddTriangleColor(beginCell.color, c2, boundaryColor);
 
         for (int i = 2; i < HexMetrics.terraceSteps; i++)
         {
             Vector3 v1 = v2;
             Color c1 = c2;
-            v2 = HexMetrics.TerraceLerp(begin, left, i);
+            v2 = Perturb(HexMetrics.TerraceLerp(begin, left, i));
             c2 = HexMetrics.TerraceLerp(beginCell.color, leftCell.color, i);
-            AddTriangle(v1, v2, boundary);
+            AddTriangleUnperturbed(v1, v2, boundary);
             AddTriangleColor(c1, c2, boundaryColor);
         }
 
-        AddTriangle(v2, left, boundary);
+        AddTriangleUnperturbed(v2, Perturb(left), boundary);
         AddTriangleColor(beginCell.color, leftCell.color, boundaryColor);
     }
 
@@ -326,7 +337,7 @@ public class HexMesh : MonoBehaviour
             boundaryPoint = -boundaryPoint;
         }
 
-        Vector3 boundary = Vector3.Lerp(begin, left, boundaryPoint);
+        Vector3 boundary = Vector3.Lerp(Perturb(begin), Perturb(left), boundaryPoint);
         Color boundaryColor = Color.Lerp(beginCell.color, leftCell.color, boundaryPoint);
 
         TriangulateBoundaryTriangle(right, rightCell, begin, beginCell, boundary, boundaryColor);
