@@ -53,8 +53,14 @@ public class HexMesh : MonoBehaviour
         Vector3 center = cell.Position;
         Vector3 v1 = center + HexMetrics.GetFirstSolidCorner(direction);
         Vector3 v2 = center + HexMetrics.GetSecondSolidCorner(direction);
+        Vector3 e1 = Vector3.Lerp(v1, v2, 1f / 3f);
+        Vector3 e2 = Vector3.Lerp(v1, v2, 2f / 3f);
 
-        AddTriangle(center, v1, v2);
+        AddTriangle(center, v1, e1);
+        AddTriangleColor(cell.color);
+        AddTriangle(center, e1, e2);
+        AddTriangleColor(cell.color);
+        AddTriangle(center, e2, v2);
         AddTriangleColor(cell.color);
 
         if(direction <= HexDirection.SE)
