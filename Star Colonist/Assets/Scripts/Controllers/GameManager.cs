@@ -6,7 +6,7 @@ using Enums;
 public class GameManager : MonoBehaviour
 {
     public static GameState gameState;
-    public static WorldGenerator worlds;
+    public static WorldGenerator world;
 
     private static GameManager instance;
     public static GameManager Instance { get { return instance; } }
@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
         else
         {
             instance = this;
-            worlds = this.GetComponent<WorldGenerator>();
+            world = this.GetComponent<WorldGenerator>();
             Debug.Log("World is ready to be generated");
         }
     }
@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.G))
         {
-            worlds.RandomName();
+            world.CreateWorld();
         }
     }
 }

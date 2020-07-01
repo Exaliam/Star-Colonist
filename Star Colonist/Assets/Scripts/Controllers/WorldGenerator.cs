@@ -4,11 +4,28 @@ using UnityEngine;
 
 public class WorldGenerator : MonoBehaviour
 {
+    public GameObject planetPrefab;
+
+    WorldManager worldManager;
+
     string[] syllable1;
     string[] syllable2;
     string[] word1;
     string[] word2;
     string planetName;
+    int nBiomes;
+    int nFlora;
+    int nFauna;
+
+    public void CreateWorld()
+    {
+        WorldName();
+        worldManager = Instantiate<GameObject>(planetPrefab).GetComponent<WorldManager>();
+        WorldBiomes();
+        WorldFlora();
+        WorldFauna();
+        Debug.Log(planetName + " is a planet with " + nBiomes + " different biomes, inhabitated by " + nFlora + " flora species and " + nFauna + " creatures.");
+    }
 
     public static string ToRoman(int number)
     {
@@ -30,7 +47,7 @@ public class WorldGenerator : MonoBehaviour
         throw new System.ArgumentOutOfRangeException("something bad happened");
     }
 
-    public void RandomName()
+    void WorldName()
     {
         int rnd1;
         int rnd2;
@@ -102,24 +119,35 @@ public class WorldGenerator : MonoBehaviour
 
         int numChance = Random.Range(0, 100);
 
-        if(numChance < 80)
-        {
-            Debug.Log("World name is " + planetName);
-        }
-        else
+        if(numChance > 80)
         {
             int numType = Random.Range(0, 100); //roll for Roman or Arab number
 
             if(numType < 50) //Arab
             {
                 int num = Random.Range(0, 9);
-                Debug.Log("World name is " + planetName + " " + num);
+                planetName = planetName + " " + num;
             }
             else //Roman
             {
                 int num = Random.Range(0, 3999);
-                Debug.Log("World name is " + planetName + " " + ToRoman(num));
+                planetName = planetName + " " + ToRoman(num);
             }
         }
+    }
+
+    void WorldBiomes()
+    {
+        nBiomes = Random.Range(1, 10);
+    }
+
+    void WorldFlora()
+    {
+        nFlora = Random.Range(1, 10) * nBiomes;
+    }
+
+    void WorldFauna()
+    {
+        nFauna = Random.Range(1, 10) * nBiomes;
     }
 }
