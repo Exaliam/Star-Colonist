@@ -7,12 +7,6 @@ namespace Enums
     //GAME OPTIONS
     public enum GameState
     {
-        Debug,
-        Load,
-        Generation,
-        Play,
-        Build,
-        Battle,
-        GameOver
+        Debug, Load, Generation, Play, Build, Battle, GameOver
     }
 }
