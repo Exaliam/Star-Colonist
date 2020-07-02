@@ -1496,6 +1496,7 @@ MonoBehaviour:
   swivelMaxZoom: 45
   moveSpeedMinZoom: 400
   moveSpeedMaxZoom: 100
+  rotationSpeed: 180
   grid: {fileID: 2093253003}
 --- !u!1 &1505152557
 GameObject:
