@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Enums;
 
 public class HexCell : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class HexCell : MonoBehaviour
     public Vector3 Position { get { return transform.localPosition; } }
 
     int elevation = int.MinValue;
-    public Color color;
+    Color color;
 
     public int Elevation
     {

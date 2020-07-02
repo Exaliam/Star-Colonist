@@ -9,4 +9,9 @@ namespace Enums
     {
         Debug, Load, Generation, Play, Build, Battle, GameOver
     }
+
+    public enum HexEdgeType
+    {
+        Flat, Slope, Cliff
+    }
 }

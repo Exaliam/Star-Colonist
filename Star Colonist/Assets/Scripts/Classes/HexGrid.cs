@@ -5,9 +5,7 @@ using UnityEngine.UI;
 
 public class HexGrid : MonoBehaviour
 {
-    [Header("Chunk Size")]
-    public int chunkCountX = 4;
-    public int chunkCountZ = 3;
+    public int chunkCountX = 4, chunkCountZ = 3;
 
     [Header("Prefabs")]
     public HexCell cellPrefab;
@@ -57,6 +55,8 @@ public class HexGrid : MonoBehaviour
 
     void CreateCells()
     {
+        cells = new HexCell[cellCountZ * cellCountX];
+
         for (int z = 0, i = 0; z < cellCountZ; z++) // i = index number
         {
             for (int x = 0; x < cellCountX; x++)
@@ -76,7 +76,7 @@ public class HexGrid : MonoBehaviour
         HexCell cell = cells[i] = Instantiate<HexCell>(cellPrefab);
         cell.transform.localPosition = position;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
-        cell.color = defaultColor;
+        cell.Color = defaultColor;
 
         //Connecting cell neighbors
         if (x > 0) 

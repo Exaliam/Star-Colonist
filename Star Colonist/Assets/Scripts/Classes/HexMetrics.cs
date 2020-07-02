@@ -1,11 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public enum HexEdgeType
-{
-    Flat, Slope, Cliff
-}
+using Enums;
 
 public static class HexMetrics
 {
