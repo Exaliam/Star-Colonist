@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Enums;
 
 public class HexMapEditor : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class HexMapEditor : MonoBehaviour
     bool applyColor;
     bool applyElevation = true;
     int brushSize;
+    OptionalToggle riverMode;
+    bool isDrag;
+    HexDirection dragDirection;
+    HexCell previousCell;
 
     void Awake()
     {
@@ -24,6 +29,10 @@ public class HexMapEditor : MonoBehaviour
         if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             HandleInput();
+        }
+        else
+        {
+            previousCell = null;
         }
     }
 
@@ -57,6 +66,11 @@ public class HexMapEditor : MonoBehaviour
         hexGrid.ShowUI(visible);
     }
 
+    public void SetRiverMode(int mode)
+    {
+        riverMode = (OptionalToggle)mode;
+    }
+
     void HandleInput()
     {
         Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -64,7 +78,23 @@ public class HexMapEditor : MonoBehaviour
 
         if (Physics.Raycast(inputRay, out hit))
         {
-            EditCells(hexGrid.GetCell(hit.point));
+            HexCell currentCell = hexGrid.GetCell(hit.point);
+
+            if(previousCell && previousCell != currentCell)
+            {
+                ValidateDrag(currentCell);
+            }
+            else
+            {
+                isDrag = false;
+            }
+
+            EditCells(currentCell);
+            previousCell = currentCell;
+        }
+        else
+        {
+            previousCell = null;
         }
     }
 
@@ -103,6 +133,34 @@ public class HexMapEditor : MonoBehaviour
             {
                 cell.Elevation = activeElevation;
             }
+
+            if(riverMode == OptionalToggle.No)
+            {
+                cell.RemoveRiver();
+            }
+            else if(isDrag && riverMode == OptionalToggle.Yes)
+            {
+                HexCell otherCell = cell.GetNeighbor(dragDirection.Opposite());
+
+                if(otherCell)
+                {
+                    otherCell.SetOutGoingRiver(dragDirection);
+                }
+            }
         }
+    }
+
+    void ValidateDrag(HexCell currentCell)
+    {
+        for (dragDirection = HexDirection.NE; dragDirection <= HexDirection.NW; dragDirection++)
+        {
+            if(previousCell.GetNeighbor(dragDirection) == currentCell)
+            {
+                isDrag = true;
+                return;
+            }
+        }
+
+        isDrag = false;
     }
 }
