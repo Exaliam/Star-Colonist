@@ -29,7 +29,7 @@ public class HexMapCamera : MonoBehaviour
             AdjustZoom(zoomDelta);
         }
 
-        float rotationDelta = Input.GetAxis("Rotation");
+        float rotationDelta = -Input.GetAxis("Rotation");
 
         if(rotationDelta != 0f)
         {

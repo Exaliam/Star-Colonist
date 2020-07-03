@@ -52,6 +52,11 @@ public class HexMapEditor : MonoBehaviour
         brushSize = (int)size;
     }
 
+    public void ShowUI (bool visible)
+    {
+        hexGrid.ShowUI(visible);
+    }
+
     void HandleInput()
     {
         Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
