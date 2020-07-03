@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public enum HexDirection { NE, E, SE, SW, W, NW }
+using Enums;
 
 public static class HexDirectionExtensions
 {
@@ -19,5 +18,17 @@ public static class HexDirectionExtensions
     public static HexDirection Next (this HexDirection direction)
     {
         return direction == HexDirection.NW ? HexDirection.NE : (direction + 1);
+    }
+
+    public static HexDirection Previous2(this HexDirection direction)
+    {
+        direction -= 2;
+        return direction >= HexDirection.NE ? direction : (direction + 6);
+    }
+
+    public static HexDirection Next2(this HexDirection direction)
+    {
+        direction += 2;
+        return direction <= HexDirection.NW ? direction : (direction - 6);
     }
 }

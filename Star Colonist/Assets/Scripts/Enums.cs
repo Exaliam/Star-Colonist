@@ -21,4 +21,9 @@ namespace Enums
     {
         Flat, Slope, Cliff
     }
+
+    public enum HexDirection
+    {
+        NE, E, SE, SW, W, NW
+    }
 }

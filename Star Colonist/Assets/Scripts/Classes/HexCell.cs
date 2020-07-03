@@ -107,6 +107,8 @@ public class HexCell : MonoBehaviour
         return hasIncomingRiver && incomingRiver == direction || hasOutgoingRiver && outgoingRiver == direction;
     }
 
+    public float StreamBedY { get { return (elevation + HexMetrics.streamBedElevationOffset) * HexMetrics.elevationStep; } }
+
     public void SetOutGoingRiver(HexDirection direction)
     {
         if(hasOutgoingRiver && outgoingRiver == direction)
