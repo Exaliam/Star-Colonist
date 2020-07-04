@@ -133,6 +133,11 @@ public class HexCell : MonoBehaviour
         hasOutgoingRiver = true;
         outgoingRiver = direction;
         RefreshSelfOnly();
+
+        neighbor.RemoveIncomingRiver();
+        neighbor.hasIncomingRiver = true;
+        neighbor.incomingRiver = direction.Opposite();
+        neighbor.RefreshSelfOnly();
     }
 
     public void RemoveRiver()
