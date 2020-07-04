@@ -2,17 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ListPool : MonoBehaviour
+public static class ListPool<T>
 {
-    // Start is called before the first frame update
-    void Start()
+    static Stack<List<T>> stack = new Stack<List<T>>();
+
+    public static List<T> Get()
     {
-        
+        if(stack.Count > 0)
+        {
+            return stack.Pop();
+        }
+
+        return new List<T>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public static void Add(List<T> list)
     {
-        
+        list.Clear();
+        stack.Push(list);
     }
 }
