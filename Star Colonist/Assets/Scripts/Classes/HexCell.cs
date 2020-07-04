@@ -53,8 +53,7 @@ public class HexCell : MonoBehaviour
             Refresh();
         }
     }
-
-
+    
     public Color Color
     {
         get
@@ -108,6 +107,8 @@ public class HexCell : MonoBehaviour
     }
 
     public float StreamBedY { get { return (elevation + HexMetrics.streamBedElevationOffset) * HexMetrics.elevationStep; } }
+
+    public float RiverSurfaceY { get { return (elevation + HexMetrics.riverSurfaceElevationOffset) * HexMetrics.elevationStep; } }
 
     public void SetOutGoingRiver(HexDirection direction)
     {
