@@ -65,6 +65,13 @@ public class HexMesh : MonoBehaviour
         colors.Add(c3);
     }
 
+    public void AddTriangleUV(Vector2 uv1, Vector2 uv2, Vector2 uv3)
+    {
+        uvs.Add(uv1);
+        uvs.Add(uv2);
+        uvs.Add(uv3);
+    }
+
     public void AddQuad(Vector3 v1, Vector3 v2, Vector3 v3, Vector3 v4)
     {
         int vertexIndex = vertices.Count;
@@ -102,6 +109,14 @@ public class HexMesh : MonoBehaviour
         colors.Add(c2);
         colors.Add(c3);
         colors.Add(c4);
+    }
+
+    public void AddQuadUV(Vector2 uv1, Vector2 uv2, Vector2 uv3, Vector2 uv4)
+    {
+        uvs.Add(uv1);
+        uvs.Add(uv2);
+        uvs.Add(uv3);
+        uvs.Add(uv4);
     }
 
     public void Clear()
@@ -148,21 +163,6 @@ public class HexMesh : MonoBehaviour
         ListPool<int>.Add(triangles);
         hexMesh.RecalculateNormals();
         meshCollider.sharedMesh = hexMesh;
-    }
-
-    public void AddTriangleUV(Vector2 uv1, Vector2 uv2, Vector2 uv3)
-    {
-        uvs.Add(uv1);
-        uvs.Add(uv2);
-        uvs.Add(uv3);
-    }
-
-    public void AddQuadUV(Vector2 uv1, Vector2 uv2, Vector2 uv3, Vector2 uv4)
-    {
-        uvs.Add(uv1);
-        uvs.Add(uv2);
-        uvs.Add(uv3);
-        uvs.Add(uv4);
     }
 
     public void AddQuadUV(float uMin, float uMax, float vMin, float vMax)

@@ -54,6 +54,15 @@ public class HexGridChunk : MonoBehaviour
         terrain.Apply();
     }
 
+
+    public void Triangulate(HexCell cell)
+    {
+        for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
+        {
+            Triangulate(d, cell);
+        }
+    }
+
     void Triangulate(HexDirection direction, HexCell cell)
     {
         Vector3 center = cell.Position;
@@ -90,14 +99,6 @@ public class HexGridChunk : MonoBehaviour
         if (direction <= HexDirection.SE)
         {
             TriangulateConnection(direction, cell, e);
-        }
-    }
-
-    public void Triangulate(HexCell cell)
-    {
-        for(HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
-        {
-            Triangulate(d, cell);
         }
     }
 
