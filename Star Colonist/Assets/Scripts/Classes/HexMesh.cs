@@ -119,6 +119,14 @@ public class HexMesh : MonoBehaviour
         uvs.Add(uv4);
     }
 
+    public void AddQuadUV(float uMin, float uMax, float vMin, float vMax)
+    {
+        uvs.Add(new Vector2(uMin, vMin));
+        uvs.Add(new Vector2(uMax, vMin));
+        uvs.Add(new Vector2(uMin, vMax));
+        uvs.Add(new Vector2(uMax, vMax));
+    }
+
     public void Clear()
     {
         hexMesh.Clear();
@@ -162,13 +170,5 @@ public class HexMesh : MonoBehaviour
         {
             meshCollider.sharedMesh = hexMesh;
         }
-    }
-
-    public void AddQuadUV(float uMin, float uMax, float vMin, float vMax)
-    {
-        uvs.Add(new Vector2(uMin, vMin));
-        uvs.Add(new Vector2(uMax, vMin));
-        uvs.Add(new Vector2(uMin, vMax));
-        uvs.Add(new Vector2(uMax, vMax));
     }
 }
