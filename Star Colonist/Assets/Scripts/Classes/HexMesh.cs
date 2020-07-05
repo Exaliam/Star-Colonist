@@ -139,21 +139,16 @@ public class HexMesh : MonoBehaviour
 
     public void Apply()
     {
-        if(useCollider)
-        {
-            meshCollider.sharedMesh = hexMesh;
-        }
-
         hexMesh.SetVertices(vertices);
         ListPool<Vector3>.Add(vertices);
 
-        if(useColors)
+        if (useColors)
         {
             hexMesh.SetColors(colors);
             ListPool<Color>.Add(colors);
         }
 
-        if(useUVCoordinates)
+        if (useUVCoordinates)
         {
             hexMesh.SetUVs(0, uvs);
             ListPool<Vector2>.Add(uvs);
@@ -162,7 +157,11 @@ public class HexMesh : MonoBehaviour
         hexMesh.SetTriangles(triangles, 0);
         ListPool<int>.Add(triangles);
         hexMesh.RecalculateNormals();
-        meshCollider.sharedMesh = hexMesh;
+
+        if (useCollider)
+        {
+            meshCollider.sharedMesh = hexMesh;
+        }
     }
 
     public void AddQuadUV(float uMin, float uMax, float vMin, float vMax)
