@@ -9,7 +9,12 @@
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" "Queue" = "Geometry+1"}
+        Tags 
+		{ 
+			"RenderType"="Opaque" 
+			"Queue" = "Geometry+1"
+		}
+
         LOD 200 
 		Offset -1, -1
 

@@ -155,7 +155,7 @@ public class HexMapEditor : MonoBehaviour
                 {
                     if(riverMode == OptionalToggle.Yes)
                     {
-                        otherCell.SetOutGoingRiver(dragDirection);
+                        otherCell.SetOutgoingRiver(dragDirection);
                     }
 
                     if(roadMode == OptionalToggle.Yes)
