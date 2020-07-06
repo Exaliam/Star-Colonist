@@ -103,7 +103,7 @@ public class HexCell : MonoBehaviour
     {
         get
         {
-            return (elevation + HexMetrics.riverSurfaceElevationOffset) * HexMetrics.elevationStep;
+            return (elevation + HexMetrics.waterElevationOffset) * HexMetrics.elevationStep;
         }
     }
 
@@ -236,6 +236,22 @@ public class HexCell : MonoBehaviour
     {
         int difference = elevation - GetNeighbor(direction).elevation;
         return difference >= 0 ? difference : -difference;
+    }
+
+    int waterLevel;
+    public bool IsUnderwater { get { return waterLevel > elevation; } }
+    public float WaterSurfaceY { get { return (waterLevel + HexMetrics.waterElevationOffset) * HexMetrics.elevationStep; } }
+
+    public int WaterLevel
+    {
+        get { return waterLevel; }
+
+        set
+        {
+            if (waterLevel == value) return;
+            waterLevel = value;
+            Refresh();
+        }
     }
 
     void SetRoad(int index, bool state)

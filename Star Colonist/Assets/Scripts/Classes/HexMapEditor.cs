@@ -11,8 +11,10 @@ public class HexMapEditor : MonoBehaviour
 
     Color activeColor;
     int activeElevation;
+    int activeWaterLevel;
     bool applyColor;
     bool applyElevation = true;
+    bool applyWaterLevel = true;
     int brushSize;
     OptionalToggle riverMode, roadMode;
     bool isDrag;
@@ -76,6 +78,16 @@ public class HexMapEditor : MonoBehaviour
         roadMode = (OptionalToggle)mode;
     }
 
+    public void SetApplyWaterLevel(bool toggle)
+    {
+        applyWaterLevel = toggle;
+    }
+    
+    public void SetWaterLevel(float level)
+    {
+        activeWaterLevel = (int)level;
+    }
+
     void HandleInput()
     {
         Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -129,15 +141,9 @@ public class HexMapEditor : MonoBehaviour
     {
         if(cell)
         {
-            if (applyColor)
-            {
-                cell.Color = activeColor;
-            }
-
-            if (applyElevation)
-            {
-                cell.Elevation = activeElevation;
-            }
+            if (applyColor) cell.Color = activeColor;
+            if (applyElevation) cell.Elevation = activeElevation;
+            if (applyWaterLevel) cell.WaterLevel = activeWaterLevel;
 
             if(riverMode == OptionalToggle.No)
             {
