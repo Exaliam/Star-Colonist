@@ -6,6 +6,7 @@ public class WorldGenerator : MonoBehaviour
 {
     public GameObject planetPrefab;
 
+    GameObject thisPlanet;
     WorldManager worldManager;
 
     string[] syllable1;
@@ -20,31 +21,11 @@ public class WorldGenerator : MonoBehaviour
     public void CreateWorld()
     {
         WorldName();
-        worldManager = Instantiate<GameObject>(planetPrefab).GetComponent<WorldManager>();
+        worldManager = Instantiate(planetPrefab).GetComponent<WorldManager>();
         WorldBiomes();
         WorldFlora();
         WorldFauna();
         Debug.Log(planetName + " is a planet with " + nBiomes + " different biomes, inhabitated by " + nFlora + " flora species and " + nFauna + " creatures.");
-    }
-
-    public static string ToRoman(int number)
-    {
-        if ((number < 0) || (number > 3999)) throw new System.ArgumentOutOfRangeException("wrong value");
-        if (number < 1) return string.Empty;
-        if (number >= 1000) return "M" + ToRoman(number - 1000);
-        if (number >= 900) return "CM" + ToRoman(number - 900);
-        if (number >= 500) return "D" + ToRoman(number - 500);
-        if (number >= 400) return "CD" + ToRoman(number - 400);
-        if (number >= 100) return "C" + ToRoman(number - 100);
-        if (number >= 90) return "XC" + ToRoman(number - 90);
-        if (number >= 50) return "L" + ToRoman(number - 50);
-        if (number >= 40) return "XL" + ToRoman(number - 40);
-        if (number >= 10) return "X" + ToRoman(number - 10);
-        if (number >= 9) return "IX" + ToRoman(number - 9);
-        if (number >= 5) return "V" + ToRoman(number - 5);
-        if (number >= 4) return "IV" + ToRoman(number - 4);
-        if (number >= 1) return "I" + ToRoman(number - 1);
-        throw new System.ArgumentOutOfRangeException("something bad happened");
     }
 
     void WorldName()
@@ -131,23 +112,23 @@ public class WorldGenerator : MonoBehaviour
             else //Roman
             {
                 int num = Random.Range(0, 3999);
-                planetName = planetName + " " + ToRoman(num);
+                planetName = planetName + " " + GameManager.ToRoman(num);
             }
         }
     }
 
     void WorldBiomes()
     {
-        nBiomes = Random.Range(1, 10);
+        nBiomes = Random.Range(2, 10);
     }
 
     void WorldFlora()
     {
-        nFlora = Random.Range(1, 10) * nBiomes;
+        nFlora = Random.Range(2, 10) * nBiomes;
     }
 
     void WorldFauna()
     {
-        nFauna = Random.Range(1, 10) * nBiomes;
+        nFauna = Random.Range(2, 10) * nBiomes;
     }
 }

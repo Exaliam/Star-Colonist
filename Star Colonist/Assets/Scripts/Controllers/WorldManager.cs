@@ -7,6 +7,8 @@ public class WorldManager : MonoBehaviour
     public static WorldManager instance;
     public static WorldManager Instance { get { return instance; } }
 
+    string worldName;
+
     GameManager gm;
 
     private void Awake()
