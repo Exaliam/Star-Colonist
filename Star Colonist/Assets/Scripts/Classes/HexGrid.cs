@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Enums;
 
 public class HexGrid : MonoBehaviour
 {
-    [Header("Chunk Size")]
-    public int chunkCountX = 4;
-    public int chunkCountZ = 3;
+    public int chunkCountX = 4, chunkCountZ = 3;
 
     [Header("Prefabs")]
     public HexCell cellPrefab;
@@ -57,6 +56,8 @@ public class HexGrid : MonoBehaviour
 
     void CreateCells()
     {
+        cells = new HexCell[cellCountZ * cellCountX];
+
         for (int z = 0, i = 0; z < cellCountZ; z++) // i = index number
         {
             for (int x = 0; x < cellCountX; x++)
@@ -76,7 +77,7 @@ public class HexGrid : MonoBehaviour
         HexCell cell = cells[i] = Instantiate<HexCell>(cellPrefab);
         cell.transform.localPosition = position;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
-        cell.color = defaultColor;
+        cell.Color = defaultColor;
 
         //Connecting cell neighbors
         if (x > 0) 
@@ -130,5 +131,32 @@ public class HexGrid : MonoBehaviour
         HexCoordinates coordinates = HexCoordinates.FromPosition(position);
         int index = coordinates.X + coordinates.Z * cellCountX + coordinates.Z / 2; //convert the cell coordinates to an array index
         return cells[index];
+    }
+
+    public HexCell GetCell(HexCoordinates coordinates)
+    {
+        int z = coordinates.Z;
+
+        if(z < 0 || z >= cellCountZ)
+        {
+            return null;
+        }
+
+        int x = coordinates.X + z / 2;
+
+        if (x < 0 || x >= cellCountX)
+        {
+            return null;
+        }
+
+        return cells[x + z * cellCountX];
+    }
+
+    public void ShowUI (bool visible)
+    {
+        for (int i = 0; i < chunks.Length; i++)
+        {
+            chunks[i].ShowUI(visible);
+        }
     }
 }
