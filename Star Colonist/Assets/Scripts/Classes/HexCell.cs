@@ -138,6 +138,22 @@ public class HexCell : MonoBehaviour
         return hasIncomingRiver && incomingRiver == direction || hasOutgoingRiver && outgoingRiver == direction;
     }
 
+    public int urbanLevel;
+
+    public int UrbanLevel
+    {
+        get { return urbanLevel; }
+
+        set
+        {
+            if(urbanLevel != value)
+            {
+                urbanLevel = value;
+                RefreshSelfOnly();
+            }
+        }
+    }
+
     public void RemoveIncomingRiver()
     {
         if (!hasIncomingRiver)
