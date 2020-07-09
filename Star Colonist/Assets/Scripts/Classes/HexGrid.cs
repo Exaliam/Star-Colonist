@@ -6,21 +6,21 @@ using Enums;
 
 public class HexGrid : MonoBehaviour
 {
+    [Header("Values")]
+    public int seed;
+    [SerializeField] private int cellCountX = 6;
+    [SerializeField] private int cellCountZ = 6;
     public int chunkCountX = 4, chunkCountZ = 3;
-
-    [Header("Prefabs")]
-    public HexCell cellPrefab;
-    public Text cellLabelPrefab;
-    public HexGridChunk chunkPrefab;
+    private float offset = 0.5f;
 
     [Header("Shapes and colors")]
     public Color defaultColor = Color.white;
     public Texture2D noiseSource;
 
-    //Coordinates
-    private int cellCountX = 6;
-    private int cellCountZ = 6;
-    private float offset = 0.5f;
+    [Header("Prefabs")]
+    public HexCell cellPrefab;
+    public Text cellLabelPrefab;
+    public HexGridChunk chunkPrefab;
 
     //Arrays
     HexCell[] cells;
@@ -29,6 +29,7 @@ public class HexGrid : MonoBehaviour
     private void Awake()
     {
         HexMetrics.noiseSource = noiseSource;
+        HexMetrics.InitializeHashGrid(seed);
         cellCountX = chunkCountX * HexMetrics.chunkSizeX;
         cellCountZ = chunkCountZ * HexMetrics.chunkSizeZ;
         CreateChunks();
@@ -37,7 +38,11 @@ public class HexGrid : MonoBehaviour
 
     private void OnEnable()
     {
-        HexMetrics.noiseSource = noiseSource;
+        if(!HexMetrics.noiseSource)
+        {
+            HexMetrics.noiseSource = noiseSource;
+            HexMetrics.InitializeHashGrid(seed);
+        }
     }
 
     void CreateChunks()

@@ -24,6 +24,8 @@ public static class HexMetrics
     public const float waterElevationOffset = -0.5f;
     public const float waterFactor = 0.6f;
     public const float waterBlendFactor = 1f - waterFactor;
+    public const int hashGridSize = 256;
+    public const float hashGridScale = 0.25f;
     public static Texture2D noiseSource;
 
     static Vector3[] corners =
@@ -128,5 +130,30 @@ public static class HexMetrics
     public static Vector3 GetWaterBridge(HexDirection direction)
     {
         return (corners[(int)direction] + corners[(int)direction + 1]) * waterBlendFactor;
+    }
+
+    public static float SampleHashGrid(Vector3 position)
+    {
+        int x = (int)(position.x * hashGridScale) % hashGridSize;
+        if (x < 0) x += hashGridSize;
+        int z = (int)(position.z * hashGridScale) % hashGridSize;
+        if (z < 0) z += hashGridSize;
+        return hashGrid[x + z * hashGridSize];
+    }
+
+    static float[] hashGrid;
+
+    public static void InitializeHashGrid(int seed)
+    {
+        hashGrid = new float[hashGridSize * hashGridSize];
+        Random.State currentState = Random.state;
+        Random.InitState(seed);
+
+        for (int i = 0; i < hashGrid.Length; i++)
+        {
+            hashGrid[i] = Random.value;
+        }
+
+        Random.state = currentState;
     }
 }
