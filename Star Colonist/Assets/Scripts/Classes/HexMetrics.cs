@@ -132,7 +132,7 @@ public static class HexMetrics
         return (corners[(int)direction] + corners[(int)direction + 1]) * waterBlendFactor;
     }
 
-    public static float SampleHashGrid(Vector3 position)
+    public static HexHash SampleHashGrid(Vector3 position)
     {
         int x = (int)(position.x * hashGridScale) % hashGridSize;
         if (x < 0) x += hashGridSize;
@@ -141,17 +141,17 @@ public static class HexMetrics
         return hashGrid[x + z * hashGridSize];
     }
 
-    static float[] hashGrid;
+    static HexHash[] hashGrid;
 
     public static void InitializeHashGrid(int seed)
     {
-        hashGrid = new float[hashGridSize * hashGridSize];
+        hashGrid = new HexHash[hashGridSize * hashGridSize];
         Random.State currentState = Random.state;
         Random.InitState(seed);
 
         for (int i = 0; i < hashGrid.Length; i++)
         {
-            hashGrid[i] = Random.value;
+            hashGrid[i] = HexHash.Create();
         }
 
         Random.state = currentState;
