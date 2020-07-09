@@ -7,6 +7,7 @@ using Enums;
 public class HexGridChunk : MonoBehaviour
 {
     public HexMesh terrain, rivers, roads, water, waterShore, estuaries;
+    public HexFeatureManager features;
 
     HexCell[] cells;
     Canvas gridCanvas;
@@ -50,6 +51,7 @@ public class HexGridChunk : MonoBehaviour
         water.Clear();
         waterShore.Clear();
         estuaries.Clear();
+        features.Clear();
 
         for(int i = 0; i < cells.Length; i++)
         {
@@ -62,6 +64,7 @@ public class HexGridChunk : MonoBehaviour
         water.Apply();
         waterShore.Apply();
         estuaries.Apply();
+        features.Apply();
     }
 
 
@@ -71,6 +74,8 @@ public class HexGridChunk : MonoBehaviour
         {
             Triangulate(d, cell);
         }
+
+        features.AddFeature(cell.Position);
     }
 
     void Triangulate(HexDirection direction, HexCell cell)
