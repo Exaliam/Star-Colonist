@@ -420,6 +420,7 @@ MonoBehaviour:
   - prefabs:
     - {fileID: 1992829167631646142, guid: 9a7bb0c113aa60648b03e966bca6a9ab, type: 3}
     - {fileID: 1992829167631646142, guid: 39a193d20b720bf4b98e251cfabdfdb0, type: 3}
+  walls: {fileID: 2996111682165306030}
 --- !u!1 &4990286566630849236
 GameObject:
   m_ObjectHideFlags: 0
@@ -549,7 +550,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5301927772569221935}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 2
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1

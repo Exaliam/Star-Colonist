@@ -176,7 +176,7 @@ public class HexGridChunk : MonoBehaviour
             TriangulateEdgeStrip(e1, cell.Color, e2, neighbor.Color, cell.HasRoadThroughEdge(direction));
         }
 
-        //filling the triangle holes
+        features.AddWall(e1, cell, e2, neighbor);
         HexCell nextNeighbor = cell.GetNeighbor(direction.Next());
 
         if (direction <= HexDirection.E && nextNeighbor != null) //gets rid of overlapping triangles and outside map triangles
@@ -272,6 +272,8 @@ public class HexGridChunk : MonoBehaviour
             terrain.AddTriangle(bottom, left, right);
             terrain.AddTriangleColor(bottomCell.Color, leftCell.Color, rightCell.Color);
         }
+
+        features.AddWall(bottom, bottomCell, left, leftCell, right, rightCell);
     }
 
     void TriangulateCornerTerraces(Vector3 begin, HexCell beginCell, Vector3 left, HexCell leftCell, Vector3 right, HexCell rightCell)
