@@ -7,6 +7,7 @@ public class HexFeatureManager : MonoBehaviour
 {
     public HexFeatureCollection[] urbanCollections, farmCollections, plantCollections;
     public HexMesh walls;
+    public Transform wallTower;
 
     Transform container;
 
@@ -147,6 +148,9 @@ public class HexFeatureManager : MonoBehaviour
         v4.y = rightTop;
         walls.AddQuadUnperturbed(v2, v1, v4, v3);
         walls.AddQuadUnperturbed(top1, top2, v3, v4);
+        Transform towerInstance = Instantiate(wallTower);
+        towerInstance.transform.localPosition = (left + right) * 0.5f;
+        towerInstance.SetParent(container, false);
     }
 
     void AddWallSegment(Vector3 pivot, HexCell pivotCell, Vector3 left, HexCell leftCell, Vector3 right, HexCell rightCell)
