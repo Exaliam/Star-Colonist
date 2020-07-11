@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Enums;
+using System.IO;
 
 public class HexGrid : MonoBehaviour
 {
@@ -163,6 +164,27 @@ public class HexGrid : MonoBehaviour
         for (int i = 0; i < chunks.Length; i++)
         {
             chunks[i].ShowUI(visible);
+        }
+    }
+
+    public void Save (BinaryWriter writer)
+    {
+        for (int i = 0; i < cells.Length; i++)
+        {
+            cells[i].Save(writer);
+        }
+    }
+
+    public void Load (BinaryReader reader)
+    {
+        for (int i = 0; i < cells.Length; i++)
+        {
+            cells[i].Load(reader);
+        }
+
+        for (int i = 0; i < chunks.Length; i++)
+        {
+            chunks[i].Refresh();
         }
     }
 }

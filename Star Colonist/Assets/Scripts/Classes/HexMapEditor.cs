@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Enums;
+using System.IO;
 
 public class HexMapEditor : MonoBehaviour
 {
@@ -51,6 +52,27 @@ public class HexMapEditor : MonoBehaviour
     public void SetApplySpecialIndex (bool toggle) { applySpecialIndex = toggle; }
     public void SetSpecialIndex (float index) { activeSpecialIndex = (int)index; }
     public void SetTerrainTypeIndex (int index) { activeTerrainTypeIndex = index; }
+
+    public void Save()
+    {
+        string path = Path.Combine(Application.persistentDataPath, "test.map");
+        using (BinaryWriter writer = new BinaryWriter(File.Open(path, FileMode.Create)))
+        {
+            writer.Write(0);
+            hexGrid.Save(writer);
+        }
+    }
+
+    public void Load()
+    {
+        string path = Path.Combine(Application.persistentDataPath, "test.map");
+        using (BinaryReader reader = new BinaryReader(File.OpenRead(path)))
+        {
+            int header = reader.ReadInt32();
+            if (header == 0) hexGrid.Load(reader);
+            else Debug.LogWarning("Unknown map format " + header);
+        }
+    }
 
     void HandleInput()
     {
