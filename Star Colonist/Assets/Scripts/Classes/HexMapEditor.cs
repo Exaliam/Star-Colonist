@@ -12,11 +12,11 @@ public class HexMapEditor : MonoBehaviour
     Color activeColor;
     int activeElevation;
     int activeWaterLevel;
-    int activeUrbanLevel, activeFarmLevel, activePlantLevel;
+    int activeUrbanLevel, activeFarmLevel, activePlantLevel, activeSpecialIndex;
     bool applyColor;
     bool applyElevation = true;
     bool applyWaterLevel = true;
-    bool applyUrbanLevel, applyFarmLevel, applyPlantLevel;
+    bool applyUrbanLevel, applyFarmLevel, applyPlantLevel, applySpecialIndex;
     int brushSize;
     OptionalToggle riverMode, roadMode, walledMode;
     bool isDrag;
@@ -125,6 +125,16 @@ public class HexMapEditor : MonoBehaviour
         walledMode = (OptionalToggle)mode;
     }
 
+    public void SetApplySpecialIndex (bool toggle)
+    {
+        applySpecialIndex = toggle;
+    }
+
+    public void SetSpecialIndex (float index)
+    {
+        activeSpecialIndex = (int)index;
+    }
+
     void HandleInput()
     {
         Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -181,6 +191,7 @@ public class HexMapEditor : MonoBehaviour
             if (applyColor) cell.Color = activeColor;
             if (applyElevation) cell.Elevation = activeElevation;
             if (applyWaterLevel) cell.WaterLevel = activeWaterLevel;
+            if (applySpecialIndex) cell.SpecialIndex = activeSpecialIndex;
             if (applyUrbanLevel) cell.UrbanLevel = activeUrbanLevel;
             if (applyFarmLevel) cell.FarmLevel = activeFarmLevel;
             if (applyPlantLevel) cell.PlantLevel = activePlantLevel;
