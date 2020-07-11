@@ -9,10 +9,9 @@ public class HexGrid : MonoBehaviour
 {
     [Header("Values")]
     public int seed;
-    [SerializeField] private int cellCountX = 6;
-    [SerializeField] private int cellCountZ = 6;
-    public int chunkCountX = 4, chunkCountZ = 3;
+    public int cellCountX = 20, cellCountZ = 15;
     private float offset = 0.5f;
+    int chunkCountX, chunkCountZ;
 
     [Header("Shapes and colors")]
     public Texture2D noiseSource;
@@ -32,10 +31,7 @@ public class HexGrid : MonoBehaviour
         HexMetrics.noiseSource = noiseSource;
         HexMetrics.InitializeHashGrid(seed);
         HexMetrics.colors = colors;
-        cellCountX = chunkCountX * HexMetrics.chunkSizeX;
-        cellCountZ = chunkCountZ * HexMetrics.chunkSizeZ;
-        CreateChunks();
-        CreateCells();
+        CreateMap(cellCountX, cellCountZ);
     }
 
     private void OnEnable()
@@ -46,6 +42,30 @@ public class HexGrid : MonoBehaviour
             HexMetrics.InitializeHashGrid(seed);
             HexMetrics.colors = colors;
         }
+    }
+
+    public void CreateMap(int x, int z)
+    {
+        if(x <= 0 || x % HexMetrics.chunkSizeX != 0 || z <= 0 || z % HexMetrics.chunkSizeZ != 0)
+        {
+            Debug.LogError("Unsupported map size");
+            return;
+        }
+
+        if(chunks != null)
+        {
+            for (int i = 0; i < chunks.Length; i++)
+            {
+                Destroy(chunks[i].gameObject);
+            }
+        }
+
+        cellCountX = x;
+        cellCountZ = z;
+        chunkCountX = cellCountX / HexMetrics.chunkSizeX;
+        chunkCountZ = cellCountZ / HexMetrics.chunkSizeZ;
+        CreateChunks();
+        CreateCells();
     }
 
     void CreateChunks()
