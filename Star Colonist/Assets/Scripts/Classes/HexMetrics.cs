@@ -33,6 +33,7 @@ public static class HexMetrics
     public const float wallYOffset = -1f;
     public const float bridgeDesignLength = 7f;
     public static Texture2D noiseSource;
+    public static Color[] colors;
 
     static Vector3[] corners =
     {

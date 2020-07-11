@@ -7,30 +7,9 @@ public class HexCell : MonoBehaviour
 {
     public HexCoordinates coordinates;
     public RectTransform uiRect;
-    public HexGridChunk chunk;
-
-    public HexCell GetNeighbor(HexDirection direction) { return neighbors[(int)direction]; }
+    public HexGridChunk chunk;public HexCell GetNeighbor(HexDirection direction) { return neighbors[(int)direction]; }
     public Vector3 Position { get { return transform.localPosition; } }
-
-    public Color Color
-    {
-        get
-        {
-            return color;
-        }
-
-        set
-        {
-            if (color == value)
-            {
-                return;
-            }
-
-            color = value;
-            Refresh();
-        }
-    }
-
+    public Color Color { get { return HexMetrics.colors[terrainTypeIndex]; } }
     public bool HasIncomingRiver { get { return hasIncomingRiver; } }
     public bool HasOutgoingRiver { get { return hasOutgoingRiver; } }
     public bool HasRiver { get { return hasIncomingRiver || hasOutgoingRiver; } }
@@ -192,6 +171,20 @@ public class HexCell : MonoBehaviour
         }
     }
 
+    public int TerrainTypeIndex
+    {
+        get { return terrainTypeIndex; }
+
+        set
+        {
+            if(terrainTypeIndex != value)
+            {
+                terrainTypeIndex = value;
+                Refresh();
+            }
+        }
+    }
+
     public float WaterSurfaceY { get { return (waterLevel + HexMetrics.waterElevationOffset) * HexMetrics.elevationStep; } }
     public float RiverSurfaceY { get { return (elevation + HexMetrics.waterElevationOffset) * HexMetrics.elevationStep; } }
     public float StreamBedY { get { return (elevation + HexMetrics.streamBedElevationOffset) * HexMetrics.elevationStep; } }
@@ -209,7 +202,6 @@ public class HexCell : MonoBehaviour
         return HexMetrics.GetEdgeType(elevation, otherCell.elevation);
     }
 
-    Color color;
     [SerializeField] HexCell[] neighbors;
     bool IsValidRiverDestination(HexCell neighbor) { return neighbor && (elevation >= neighbor.elevation || waterLevel == neighbor.elevation); }
     [SerializeField] bool[] roads;
@@ -218,6 +210,7 @@ public class HexCell : MonoBehaviour
     int elevation = int.MinValue;
     int waterLevel;
     int specialIndex;
+    int terrainTypeIndex;
     HexDirection incomingRiver, outgoingRiver;
 
     public void SetNeighbor(HexDirection direction, HexCell cell)
