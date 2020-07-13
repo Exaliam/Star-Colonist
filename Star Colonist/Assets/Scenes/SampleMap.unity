@@ -8045,7 +8045,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Bl
+  m_Text: W
 --- !u!222 &1245081719
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9539,7 +9539,7 @@ GameObject:
   - component: {fileID: 1430201644}
   - component: {fileID: 1430201645}
   m_Layer: 0
-  m_Name: Toggle Blue
+  m_Name: Toggle White
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
