@@ -15,6 +15,7 @@ public class HexGrid : MonoBehaviour
 
     [Header("Shapes and colors")]
     public Texture2D noiseSource;
+    public Texture2D[] terrainTypes;
 
     [Header("Prefabs")]
     public HexCell cellPrefab;

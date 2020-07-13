@@ -14312,12 +14312,12 @@ MonoBehaviour:
   cellCountX: 20
   cellCountZ: 15
   noiseSource: {fileID: 2800000, guid: a19768d18701c7c41b39fa378da44b2e, type: 3}
-  colors:
-  - {r: 1, g: 0.88915026, b: 0, a: 0}
-  - {r: 0.021804927, g: 0.6603774, b: 0.098518044, a: 0}
-  - {r: 0.12041653, g: 0.18626605, b: 0.7735849, a: 0}
-  - {r: 0.5943396, g: 0.3200437, b: 0.103729084, a: 0}
-  - {r: 1, g: 1, b: 1, a: 0}
+  terrainTypes:
+  - {fileID: 2800000, guid: 4216e579b5f35bb45968782ea4fa55b6, type: 3}
+  - {fileID: 2800000, guid: 2f003ee359b2bcb4d81a97a2000de2c8, type: 3}
+  - {fileID: 2800000, guid: e46c7e1c56d6ff147ae4c3d7bd725676, type: 3}
+  - {fileID: 2800000, guid: 97bdb82587f1b0440b6da0eafddacf04, type: 3}
+  - {fileID: 2800000, guid: d9148aaace673e04f900ba6ab4de513d, type: 3}
   cellPrefab: {fileID: 1388766626224784697, guid: c3df08c309bac254ea3e51521b362542,
     type: 3}
   cellLabelPrefab: {fileID: 665214300862555070, guid: ce0ac13297f504a45b6cca91d7d143e1,
