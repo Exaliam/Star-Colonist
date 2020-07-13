@@ -15,7 +15,6 @@ public class HexGrid : MonoBehaviour
 
     [Header("Shapes and colors")]
     public Texture2D noiseSource;
-    public Color[] colors;
 
     [Header("Prefabs")]
     public HexCell cellPrefab;
@@ -30,7 +29,6 @@ public class HexGrid : MonoBehaviour
     {
         HexMetrics.noiseSource = noiseSource;
         HexMetrics.InitializeHashGrid(seed);
-        HexMetrics.colors = colors;
         CreateMap(cellCountX, cellCountZ);
     }
 
@@ -40,7 +38,6 @@ public class HexGrid : MonoBehaviour
         {
             HexMetrics.noiseSource = noiseSource;
             HexMetrics.InitializeHashGrid(seed);
-            HexMetrics.colors = colors;
         }
     }
 

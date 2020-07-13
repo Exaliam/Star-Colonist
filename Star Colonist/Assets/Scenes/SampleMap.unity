@@ -1317,7 +1317,7 @@ GameObject:
   - component: {fileID: 168164583}
   - component: {fileID: 168164584}
   m_Layer: 0
-  m_Name: Toggle Blue
+  m_Name: Toggle Mud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4408,7 +4408,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Br
+  m_Text: St
 --- !u!222 &550928241
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4560,7 +4560,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Bl
+  m_Text: M
 --- !u!222 &581829528
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5622,7 +5622,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Y
+  m_Text: Sa
 --- !u!222 &757069792
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7333,7 +7333,7 @@ GameObject:
   - component: {fileID: 1074118693}
   - component: {fileID: 1074118694}
   m_Layer: 0
-  m_Name: Toggle Brown
+  m_Name: Toggle Stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7357,7 +7357,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 61.499992, y: 8.5}
+  m_AnchoredPosition: {x: 60, y: 8.5}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1074118694
@@ -8045,7 +8045,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: W
+  m_Text: Sn
 --- !u!222 &1245081719
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8828,7 +8828,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Color
+  m_Text: Terrain
 --- !u!222 &1332498253
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9539,7 +9539,7 @@ GameObject:
   - component: {fileID: 1430201644}
   - component: {fileID: 1430201645}
   m_Layer: 0
-  m_Name: Toggle White
+  m_Name: Toggle Snow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10571,7 +10571,7 @@ GameObject:
   - component: {fileID: 1600574086}
   - component: {fileID: 1600574087}
   m_Layer: 0
-  m_Name: Toggle Yellow
+  m_Name: Toggle Sand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10595,7 +10595,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 62.1, y: 35.5}
+  m_AnchoredPosition: {x: 60, y: 35.5}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1600574087
@@ -12650,7 +12650,7 @@ GameObject:
   - component: {fileID: 1856107138}
   - component: {fileID: 1856107139}
   m_Layer: 0
-  m_Name: Toggle Green
+  m_Name: Toggle Grass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14974,7 +14974,7 @@ GameObject:
   - component: {fileID: 2132332343}
   - component: {fileID: 2132332342}
   m_Layer: 0
-  m_Name: Color Panel
+  m_Name: Terrain Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
