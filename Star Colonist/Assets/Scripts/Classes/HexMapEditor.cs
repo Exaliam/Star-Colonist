@@ -52,34 +52,7 @@ public class HexMapEditor : MonoBehaviour
     public void SetApplySpecialIndex (bool toggle) { applySpecialIndex = toggle; }
     public void SetSpecialIndex (float index) { activeSpecialIndex = (int)index; }
     public void SetTerrainTypeIndex (int index) { activeTerrainTypeIndex = index; }
-
-    public void Save()
-    {
-        string path = Path.Combine(Application.persistentDataPath, "test.map");
-        using (BinaryWriter writer = new BinaryWriter(File.Open(path, FileMode.Create)))
-        {
-            writer.Write(1);
-            hexGrid.Save(writer);
-        }
-    }
-
-    public void Load()
-    {
-        string path = Path.Combine(Application.persistentDataPath, "test.map");
-        using (BinaryReader reader = new BinaryReader(File.OpenRead(path)))
-        {
-            int header = reader.ReadInt32();
-
-            if (header <= 1)
-            {
-                hexGrid.Load(reader, header);
-                HexMapCamera.ValidatePosition();
-            }
-
-            else Debug.LogWarning("Unknown map format " + header);
-        }
-    }
-
+    
     void HandleInput()
     {
         Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
