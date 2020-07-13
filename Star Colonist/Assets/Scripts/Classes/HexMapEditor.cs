@@ -8,6 +8,7 @@ using System.IO;
 public class HexMapEditor : MonoBehaviour
 {
     public HexGrid hexGrid;
+    public Material terrainMaterial;
     
     int activeElevation;
     int activeWaterLevel;
@@ -21,6 +22,11 @@ public class HexMapEditor : MonoBehaviour
     OptionalToggle riverMode, roadMode, walledMode;
     HexDirection dragDirection;
     HexCell previousCell;
+
+    private void Awake()
+    {
+        terrainMaterial.DisableKeyword("GRID_ON");
+    }
 
     void Update()
     {
@@ -52,6 +58,12 @@ public class HexMapEditor : MonoBehaviour
     public void SetApplySpecialIndex (bool toggle) { applySpecialIndex = toggle; }
     public void SetSpecialIndex (float index) { activeSpecialIndex = (int)index; }
     public void SetTerrainTypeIndex (int index) { activeTerrainTypeIndex = index; }
+
+    public void ShowGrid(bool visible)
+    {
+        if (visible) terrainMaterial.EnableKeyword("GRID_ON");
+        else terrainMaterial.DisableKeyword("GRID_ON");
+    }
     
     void HandleInput()
     {
