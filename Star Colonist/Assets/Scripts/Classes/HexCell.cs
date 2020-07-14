@@ -63,6 +63,7 @@ public class HexCell : MonoBehaviour
     public int urbanLevel, farmLevel, plantLevel;
     public int SearchHeuristic { get; set; }
     public int SearchPriority { get { return distance + SearchHeuristic; } }
+    public int SearchPhase { get; set; }
 
     public int Elevation
     {

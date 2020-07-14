@@ -28,6 +28,7 @@ public class HexGrid : MonoBehaviour
 
     //Other
     HexCellPriorityQueue searchFrontier;
+    int searchFrontierPhase;
 
     private void Awake()
     {
@@ -199,17 +200,18 @@ public class HexGrid : MonoBehaviour
 
     void Search(HexCell fromCell, HexCell toCell, int speed)
     {
+        searchFrontierPhase += 2;
         if (searchFrontier == null) searchFrontier = new HexCellPriorityQueue();
         else searchFrontier.Clear();
 
         for (int i = 0; i < cells.Length; i++)
         {
-            cells[i].Distance = int.MaxValue;
             cells[i].SetLabel(null);
             cells[i].DisableHighlight();
         }
 
         fromCell.EnableHighight(Color.blue);
+        fromCell.SearchPhase = searchFrontierPhase;
         fromCell.Distance = 0;
         searchFrontier.Enqueue(fromCell);
 
@@ -236,7 +238,7 @@ public class HexGrid : MonoBehaviour
             for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
             {
                 HexCell neighbor = current.GetNeighbor(d);
-                if (neighbor == null) continue;
+                if (neighbor == null || neighbor.SearchPhase > searchFrontierPhase) continue;
                 if (neighbor.IsUnderwater) continue;
                 HexEdgeType edgeType = current.GetEdgeType(neighbor);
                 if (edgeType == HexEdgeType.Cliff) continue;
@@ -254,8 +256,9 @@ public class HexGrid : MonoBehaviour
                 int turn = distance / speed;
                 if (turn > currentTurn) distance = turn * speed + moveCost;
 
-                if (neighbor.Distance == int.MaxValue)
+                if (neighbor.SearchPhase < searchFrontierPhase)
                 {
+                    neighbor.SearchPhase = searchFrontierPhase;
                     neighbor.Distance = distance;
                     neighbor.PathFrom = current;
                     neighbor.SearchHeuristic = neighbor.coordinates.DistanceTo(toCell.coordinates);
