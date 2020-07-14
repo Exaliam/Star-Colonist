@@ -199,36 +199,43 @@ public class HexGrid : MonoBehaviour
         }
 
         WaitForSeconds delay = new WaitForSeconds(1 / 60f);
-        Queue<HexCell> frontier = new Queue<HexCell>();
+        List<HexCell> frontier = new List<HexCell>();
         cell.Distance = 0;
-        frontier.Enqueue(cell);
+        frontier.Add(cell);
 
         while(frontier.Count > 0)
         {
             yield return delay;
-            HexCell current = frontier.Dequeue();
+            HexCell current = frontier[0];
+            frontier.RemoveAt(0);
 
             for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
             {
                 HexCell neighbor = current.GetNeighbor(d);
+                if (neighbor == null) continue;
+                if (neighbor.IsUnderwater) continue;
+                HexEdgeType edgeType = current.GetEdgeType(neighbor);
+                if (edgeType == HexEdgeType.Cliff) continue;
+                int distance = current.Distance;
 
-                if (neighbor == null || neighbor.Distance != int.MaxValue)
+                if (current.HasRoadThroughEdge(d)) distance += 1;
+                else if (current.Walled != neighbor.Walled) continue;
+                else
                 {
-                    continue;
+                    distance += edgeType == HexEdgeType.Flat ? 5 : 10;
+                    distance += neighbor.UrbanLevel + neighbor.FarmLevel + neighbor.PlantLevel;
                 }
 
-                if(neighbor.IsUnderwater)
+                if (neighbor.Distance == int.MaxValue)
                 {
-                    continue;
+                    neighbor.Distance = distance;
+                    frontier.Add(neighbor);
                 }
-
-                if(current.GetEdgeType(neighbor) == HexEdgeType.Cliff)
-                {
-                    continue;
-                }
+                else if (distance < neighbor.Distance) neighbor.Distance = distance;
 
                 neighbor.Distance = current.Distance + 1;
-                frontier.Enqueue(neighbor);
+                frontier.Add(neighbor);
+                frontier.Sort((x, y) => x.Distance.CompareTo(y.Distance));
             }
         }
     }
