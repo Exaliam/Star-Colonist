@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Enums;
 using System.IO;
+using UnityEngine.UI;
 
 public class HexCell : MonoBehaviour
 {
@@ -178,6 +179,17 @@ public class HexCell : MonoBehaviour
         }
     }
 
+    public int Distance
+    {
+        get { return distance; }
+
+        set
+        {
+            distance = value;
+            UpdateDistanceLabel();
+        }
+    }
+
     public float WaterSurfaceY { get { return (waterLevel + HexMetrics.waterElevationOffset) * HexMetrics.elevationStep; } }
     public float RiverSurfaceY { get { return (elevation + HexMetrics.waterElevationOffset) * HexMetrics.elevationStep; } }
     public float StreamBedY { get { return (elevation + HexMetrics.streamBedElevationOffset) * HexMetrics.elevationStep; } }
@@ -204,6 +216,7 @@ public class HexCell : MonoBehaviour
     int waterLevel;
     int specialIndex;
     int terrainTypeIndex;
+    int distance;
     HexDirection incomingRiver, outgoingRiver;
 
     public void SetNeighbor(HexDirection direction, HexCell cell)
@@ -365,6 +378,12 @@ public class HexCell : MonoBehaviour
         }
 
         RefreshPosition();
+    }
+
+    void UpdateDistanceLabel()
+    {
+        Text label = uiRect.GetComponent<Text>();
+        label.text = distance == int.MaxValue ? "" : distance.ToString();
     }
 
     void ValidateRivers()

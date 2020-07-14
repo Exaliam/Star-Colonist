@@ -11,6 +11,13 @@ public struct HexCoordinates //cube coordinates
     public int Z { get { return z; } }
     public int Y { get { return -X - Z; } }
 
+    public int DistanceTo(HexCoordinates other)
+    {
+        return ((x < other.x ? other.x - x : x - other.x) +
+               (Y < other.Y ? other.Y - Y : Y - other.Y) +
+               (z < other.z ? other.z - z : z - other.z)) / 2;
+    }
+
     public HexCoordinates(int x, int z)
     {
         this.x = x;
