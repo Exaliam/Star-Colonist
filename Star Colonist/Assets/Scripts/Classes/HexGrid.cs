@@ -209,6 +209,7 @@ public class HexGrid : MonoBehaviour
         toCell.EnableHighight(Color.red);
         WaitForSeconds delay = new WaitForSeconds(1 / 60f);
         fromCell.Distance = 0;
+        searchFrontier.Enqueue(fromCell);
 
         while(searchFrontier.Count > 0)
         {
@@ -259,8 +260,6 @@ public class HexGrid : MonoBehaviour
                     neighbor.PathFrom = current;
                     searchFrontier.Change(neighbor, oldPriority);
                 }
-
-                neighbor.Distance = current.Distance + 1;
             }
         }
     }
