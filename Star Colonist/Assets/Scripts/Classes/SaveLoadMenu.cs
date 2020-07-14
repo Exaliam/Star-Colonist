@@ -31,12 +31,6 @@ public class SaveLoadMenu : MonoBehaviour
         }
 
         FillList();
-
-        for (int i = 0; i < listContent.childCount; i++)
-        {
-            Destroy(listContent.GetChild(i).gameObject);
-        }
-
         gameObject.SetActive(true);
         HexMapCamera.Locked = true;
     }
@@ -110,6 +104,11 @@ public class SaveLoadMenu : MonoBehaviour
 
     void FillList()
     {
+        for (int i = 0; i < listContent.childCount; i++)
+        {
+            Destroy(listContent.GetChild(i).gameObject);
+        }
+
         string[] paths = Directory.GetFiles(Application.persistentDataPath, "*.map");
         Array.Sort(paths);
 
