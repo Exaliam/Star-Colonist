@@ -21,10 +21,10 @@
 
 		UNITY_DECLARE_TEX2DARRAY(_MainTex);
 
+		sampler2D _GridTex;
 		half _Glossiness;
 		half _Metallic;
 		fixed4 _Color;
-		sampler2D _GridTex;
 
 		struct Input {
 			float4 color : COLOR;
@@ -55,7 +55,7 @@
 				gridUV.y *= 1 / (2 * 15.0);
 				grid = tex2D(_GridTex, gridUV);
 			#endif
-			o.Albedo = c.rgb * * grid * _Color;
+			o.Albedo = c.rgb * grid * _Color;
 			o.Metallic = _Metallic;
 			o.Smoothness = _Glossiness;
 			o.Alpha = c.a;
