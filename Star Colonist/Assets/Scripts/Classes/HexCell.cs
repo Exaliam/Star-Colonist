@@ -186,12 +186,7 @@ public class HexCell : MonoBehaviour
     public int Distance
     {
         get { return distance; }
-
-        set
-        {
-            distance = value;
-            UpdateDistanceLabel();
-        }
+        set { distance = value; }
     }
 
     public float WaterSurfaceY { get { return (waterLevel + HexMetrics.waterElevationOffset) * HexMetrics.elevationStep; } }
@@ -330,6 +325,12 @@ public class HexCell : MonoBehaviour
         highlight.enabled = true;
     }
 
+    public void SetLabel(string text)
+    {
+        Text label = uiRect.GetComponent<Text>();
+        label.text = text;
+    }
+
     public void Save (BinaryWriter writer)
     {
         writer.Write((byte)terrainTypeIndex);
@@ -395,12 +396,6 @@ public class HexCell : MonoBehaviour
         }
 
         RefreshPosition();
-    }
-
-    void UpdateDistanceLabel()
-    {
-        Text label = uiRect.GetComponent<Text>();
-        label.text = distance == int.MaxValue ? "" : distance.ToString();
     }
 
     void ValidateRivers()
