@@ -11,6 +11,7 @@ public class HexCell : MonoBehaviour
     public RectTransform uiRect;
     public HexGridChunk chunk;public HexCell GetNeighbor(HexDirection direction) { return neighbors[(int)direction]; }
     public Vector3 Position { get { return transform.localPosition; } }
+    public HexCell PathFrom { get; set; }
     public bool HasIncomingRiver { get { return hasIncomingRiver; } }
     public bool HasOutgoingRiver { get { return hasOutgoingRiver; } }
     public bool HasRiver { get { return hasIncomingRiver || hasOutgoingRiver; } }

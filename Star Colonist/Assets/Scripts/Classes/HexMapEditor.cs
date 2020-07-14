@@ -22,7 +22,7 @@ public class HexMapEditor : MonoBehaviour
     bool editMode;
     OptionalToggle riverMode, roadMode, walledMode;
     HexDirection dragDirection;
-    HexCell previousCell;
+    HexCell previousCell, searchFromCell, searchToCell;
 
     private void Awake()
     {
@@ -93,7 +93,18 @@ public class HexMapEditor : MonoBehaviour
             {
                 EditCells(currentCell);
             }
-            else hexGrid.FindDistancesTo(currentCell);
+            else if (Input.GetKey(KeyCode.LeftShift) && searchToCell != currentCell)
+            {
+                if (searchFromCell) searchFromCell.DisableHighlight();
+                searchFromCell = currentCell;
+                searchFromCell.EnableHighight(Color.blue);
+                if (searchToCell) hexGrid.FindPath(searchFromCell, searchToCell);
+            }
+            else if (searchFromCell && searchFromCell != currentCell)
+            {
+                searchToCell = currentCell;
+                hexGrid.FindPath(searchFromCell, searchToCell);
+            } 
 
             previousCell = currentCell;
         }
