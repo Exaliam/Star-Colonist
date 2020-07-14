@@ -19,6 +19,7 @@ public class HexMapEditor : MonoBehaviour
     bool applyWaterLevel = true;
     bool applyUrbanLevel, applyFarmLevel, applyPlantLevel, applySpecialIndex;
     bool isDrag;
+    bool editMode;
     OptionalToggle riverMode, roadMode, walledMode;
     HexDirection dragDirection;
     HexCell previousCell;
@@ -43,7 +44,6 @@ public class HexMapEditor : MonoBehaviour
     public void SetElevation(float elevation) { activeElevation = (int)elevation; }
     public void SetApplyElevation(bool toggle) { applyElevation = toggle; }
     public void SetBrushSize(float size) { brushSize = (int)size; }
-    public void ShowUI (bool visible) { hexGrid.ShowUI(visible); }
     public void SetRiverMode(int mode) { riverMode = (OptionalToggle)mode; }
     public void SetRoadMode(int mode) { roadMode = (OptionalToggle)mode; }
     public void SetApplyWaterLevel(bool toggle) { applyWaterLevel = toggle; }
@@ -58,6 +58,12 @@ public class HexMapEditor : MonoBehaviour
     public void SetApplySpecialIndex (bool toggle) { applySpecialIndex = toggle; }
     public void SetSpecialIndex (float index) { activeSpecialIndex = (int)index; }
     public void SetTerrainTypeIndex (int index) { activeTerrainTypeIndex = index; }
+
+    public void SetEditMode(bool toggle)
+    {
+        editMode = toggle;
+        hexGrid.ShowUI(!toggle);
+    }
 
     public void ShowGrid(bool visible)
     {
@@ -83,7 +89,11 @@ public class HexMapEditor : MonoBehaviour
                 isDrag = false;
             }
 
-            EditCells(currentCell);
+            if(editMode)
+            {
+                EditCells(currentCell);
+            }
+
             previousCell = currentCell;
         }
         else

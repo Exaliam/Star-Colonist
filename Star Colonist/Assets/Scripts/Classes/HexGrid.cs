@@ -135,7 +135,6 @@ public class HexGrid : MonoBehaviour
         //Instantiate cell and then show coordinates
         Text label = Instantiate<Text>(cellLabelPrefab);
         label.rectTransform.anchoredPosition = new Vector2(position.x, position.z);
-        label.text = cell.coordinates.ToStringOnSeparateLines();
         cell.uiRect = label.rectTransform;
         cell.Elevation = 0;
         AddCellToChunk(x, z, cell);
