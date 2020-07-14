@@ -313,6 +313,19 @@ public class HexCell : MonoBehaviour
         }
     }
 
+    public void DisableHighlight()
+    {
+        Image highlight = uiRect.GetChild(0).GetComponent<Image>();
+        highlight.enabled = false;
+    }
+
+    public void EnableHighight(Color color)
+    {
+        Image highlight = uiRect.GetChild(0).GetComponent<Image>();
+        highlight.color = color;
+        highlight.enabled = true;
+    }
+
     public void Save (BinaryWriter writer)
     {
         writer.Write((byte)terrainTypeIndex);
