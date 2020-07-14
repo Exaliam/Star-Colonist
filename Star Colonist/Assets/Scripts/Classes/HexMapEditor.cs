@@ -95,15 +95,21 @@ public class HexMapEditor : MonoBehaviour
             }
             else if (Input.GetKey(KeyCode.LeftShift) && searchToCell != currentCell)
             {
-                if (searchFromCell) searchFromCell.DisableHighlight();
-                searchFromCell = currentCell;
-                searchFromCell.EnableHighight(Color.blue);
-                if (searchToCell) hexGrid.FindPath(searchFromCell, searchToCell, 24);
+                if(searchFromCell != currentCell)
+                {
+                    if (searchFromCell) searchFromCell.DisableHighlight();
+                    searchFromCell = currentCell;
+                    searchFromCell.EnableHighight(Color.blue);
+                    if (searchToCell) hexGrid.FindPath(searchFromCell, searchToCell, 24);
+                }
             }
             else if (searchFromCell && searchFromCell != currentCell)
             {
-                searchToCell = currentCell;
-                hexGrid.FindPath(searchFromCell, searchToCell, 24);
+                if(searchFromCell != currentCell)
+                {
+                    searchToCell = currentCell;
+                    hexGrid.FindPath(searchFromCell, searchToCell, 24);
+                }
             } 
 
             previousCell = currentCell;
