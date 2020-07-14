@@ -319,7 +319,7 @@ public class HexCell : MonoBehaviour
         highlight.enabled = false;
     }
 
-    public void EnableHighight(Color color)
+    public void EnableHighlight(Color color)
     {
         Image highlight = uiRect.GetChild(0).GetComponent<Image>();
         highlight.color = color;

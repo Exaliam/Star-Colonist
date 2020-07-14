@@ -22,13 +22,16 @@ public class HexGrid : MonoBehaviour
     public Text cellLabelPrefab;
     public HexGridChunk chunkPrefab;
 
+    //Pathfinding
+    HexCellPriorityQueue searchFrontier;
+    HexCell currentPathFrom, currentPathTo;
+    bool currentPathExists;
+    int searchFrontierPhase;
+
     //Arrays
     HexCell[] cells;
     HexGridChunk[] chunks;
-
-    //Other
-    HexCellPriorityQueue searchFrontier;
-    int searchFrontierPhase;
+    
 
     private void Awake()
     {
@@ -53,6 +56,8 @@ public class HexGrid : MonoBehaviour
             Debug.LogError("Unsupported map size");
             return false;
         }
+
+        ClearPath();
 
         if(chunks != null)
         {
@@ -191,26 +196,20 @@ public class HexGrid : MonoBehaviour
 
     public void FindPath(HexCell fromCell, HexCell toCell, int speed)
     {
-        System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-        sw.Start();
-        Search(fromCell, toCell, speed);
-        sw.Stop();
-        Debug.Log("sw.ElapsedMilliseconds");
+        ClearPath();
+        currentPathFrom = fromCell;
+        currentPathTo = toCell;
+        currentPathExists = Search(fromCell, toCell, speed);
+        ShowPath(speed);
     }
 
-    void Search(HexCell fromCell, HexCell toCell, int speed)
+    bool Search(HexCell fromCell, HexCell toCell, int speed)
     {
         searchFrontierPhase += 2;
         if (searchFrontier == null) searchFrontier = new HexCellPriorityQueue();
         else searchFrontier.Clear();
 
-        for (int i = 0; i < cells.Length; i++)
-        {
-            cells[i].SetLabel(null);
-            cells[i].DisableHighlight();
-        }
-
-        fromCell.EnableHighight(Color.blue);
+        fromCell.EnableHighlight(Color.blue);
         fromCell.SearchPhase = searchFrontierPhase;
         fromCell.Distance = 0;
         searchFrontier.Enqueue(fromCell);
@@ -221,16 +220,7 @@ public class HexGrid : MonoBehaviour
 
             if (current == toCell)
             {
-                while(current != fromCell)
-                {
-                    int turn = current.Distance / speed;
-                    current.SetLabel(turn.ToString());
-                    current.EnableHighight(Color.white);
-                    current = current.PathFrom;
-                }
-
-                toCell.EnableHighight(Color.red);
-                break;
+                return true;
             }
 
             int currentTurn = current.Distance / speed;
@@ -273,6 +263,8 @@ public class HexGrid : MonoBehaviour
                 }
             }
         }
+
+        return false;
     }
 
     public void Save (BinaryWriter writer)
@@ -288,6 +280,7 @@ public class HexGrid : MonoBehaviour
 
     public void Load (BinaryReader reader, int header)
     {
+        ClearPath();
         int x = 20, z = 15;
 
         if(header >= 1)
@@ -310,5 +303,49 @@ public class HexGrid : MonoBehaviour
         {
             chunks[i].Refresh();
         }
+    }
+
+    void ShowPath(int speed)
+    {
+        if(currentPathExists)
+        {
+            HexCell current = currentPathTo;
+
+            while(current != currentPathFrom)
+            {
+                int turn = current.Distance / speed;
+                current.SetLabel(turn.ToString());
+                current.EnableHighlight(Color.white);
+                current = current.PathFrom;
+            }
+        }
+
+        currentPathFrom.EnableHighlight(Color.blue);
+        currentPathTo.EnableHighlight(Color.red);
+    }
+
+    void ClearPath()
+    {
+        if(currentPathExists)
+        {
+            HexCell current = currentPathTo;
+
+            while(current != currentPathFrom)
+            {
+                current.SetLabel(null);
+                current.DisableHighlight();
+                current = current.PathFrom;
+            }
+
+            currentPathTo.DisableHighlight();
+            currentPathExists = false;
+        }
+        else if(currentPathFrom)
+        {
+            currentPathFrom.DisableHighlight();
+            currentPathTo.DisableHighlight();
+        }
+
+        currentPathFrom = currentPathTo = null;
     }
 }

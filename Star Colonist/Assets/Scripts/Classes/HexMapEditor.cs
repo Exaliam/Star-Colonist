@@ -99,7 +99,7 @@ public class HexMapEditor : MonoBehaviour
                 {
                     if (searchFromCell) searchFromCell.DisableHighlight();
                     searchFromCell = currentCell;
-                    searchFromCell.EnableHighight(Color.blue);
+                    searchFromCell.EnableHighlight(Color.blue);
                     if (searchToCell) hexGrid.FindPath(searchFromCell, searchToCell, 24);
                 }
             }
