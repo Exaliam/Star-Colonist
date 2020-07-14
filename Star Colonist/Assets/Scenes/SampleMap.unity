@@ -14651,6 +14651,8 @@ MonoBehaviour:
     type: 3}
   chunkPrefab: {fileID: 6181063384373079926, guid: 494163434d7a695499f75737adb88e89,
     type: 3}
+  unitPrefab: {fileID: 6664842270569478982, guid: ec4eec9514489a64ea644dc8b286d5f0,
+    type: 3}
 --- !u!4 &2093253004
 Transform:
   m_ObjectHideFlags: 0

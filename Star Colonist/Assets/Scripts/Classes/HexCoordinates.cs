@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 [System.Serializable]
 public struct HexCoordinates //cube coordinates
@@ -59,6 +60,14 @@ public struct HexCoordinates //cube coordinates
         return new HexCoordinates(iX, iZ);
     }
 
+    public static HexCoordinates Load (BinaryReader reader)
+    {
+        HexCoordinates c;
+        c.x = reader.ReadInt32();
+        c.z = reader.ReadInt32();
+        return c;
+    }
+
     public override string ToString()
     {
         return "(" + X.ToString() + ", " + Y.ToString() + ", " + Z.ToString() + ")";
@@ -67,5 +76,11 @@ public struct HexCoordinates //cube coordinates
     public string ToStringOnSeparateLines()
     {
         return X.ToString() + "\n" + Y.ToString() + "\n" + Z.ToString();
+    }
+
+    public void Save(BinaryWriter writer)
+    {
+        writer.Write(x);
+        writer.Write(z);
     }
 }

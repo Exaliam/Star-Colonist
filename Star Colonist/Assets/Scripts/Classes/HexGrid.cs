@@ -21,6 +21,7 @@ public class HexGrid : MonoBehaviour
     public HexCell cellPrefab;
     public Text cellLabelPrefab;
     public HexGridChunk chunkPrefab;
+    public HexUnit unitPrefab;
 
     //Pathfinding
     HexCellPriorityQueue searchFrontier;
@@ -28,15 +29,16 @@ public class HexGrid : MonoBehaviour
     bool currentPathExists;
     int searchFrontierPhase;
 
-    //Arrays
+    //Arrays and Lists
     HexCell[] cells;
     HexGridChunk[] chunks;
-    
+    List<HexUnit> units = new List<HexUnit>();
 
     private void Awake()
     {
         HexMetrics.noiseSource = noiseSource;
         HexMetrics.InitializeHashGrid(seed);
+        HexUnit.unitPrefab = unitPrefab;
         CreateMap(cellCountX, cellCountZ);
     }
 
@@ -46,6 +48,7 @@ public class HexGrid : MonoBehaviour
         {
             HexMetrics.noiseSource = noiseSource;
             HexMetrics.InitializeHashGrid(seed);
+            HexUnit.unitPrefab = unitPrefab;
         }
     }
 
@@ -58,6 +61,7 @@ public class HexGrid : MonoBehaviour
         }
 
         ClearPath();
+        ClearUnits();
 
         if(chunks != null)
         {
@@ -74,6 +78,20 @@ public class HexGrid : MonoBehaviour
         CreateChunks();
         CreateCells();
         return true;
+    }
+
+    public void AddUnit(HexUnit unit, HexCell location, float orientation)
+    {
+        units.Add(unit);
+        unit.transform.SetParent(transform, false);
+        unit.Location = location;
+        unit.Orientation = orientation;
+    }
+
+    public void RemoveUnit(HexUnit unit)
+    {
+        units.Remove(unit);
+        unit.Die();
     }
 
     void CreateChunks()
@@ -276,11 +294,19 @@ public class HexGrid : MonoBehaviour
         {
             cells[i].Save(writer);
         }
+
+        writer.Write(units.Count);
+
+        for (int i = 0; i < units.Count; i++)
+        {
+            units[i].Save(writer);
+        }
     }
 
     public void Load (BinaryReader reader, int header)
     {
         ClearPath();
+        ClearUnits();
         int x = 20, z = 15;
 
         if(header >= 1)
@@ -302,6 +328,16 @@ public class HexGrid : MonoBehaviour
         for (int i = 0; i < chunks.Length; i++)
         {
             chunks[i].Refresh();
+        }
+
+        if(header >= 2)
+        {
+            int unitCount = reader.ReadInt32();
+        
+            for (int i = 0; i < unitCount; i++)
+            {
+                HexUnit.Load(reader, this);
+            }
         }
     }
 
@@ -347,5 +383,15 @@ public class HexGrid : MonoBehaviour
         }
 
         currentPathFrom = currentPathTo = null;
+    }
+
+    void ClearUnits()
+    {
+        for (int i = 0; i < units.Count; i++)
+        {
+            units[i].Die();
+        }
+
+        units.Clear();
     }
 }
