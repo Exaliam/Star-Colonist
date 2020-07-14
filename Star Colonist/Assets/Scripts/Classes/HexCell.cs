@@ -13,6 +13,7 @@ public class HexCell : MonoBehaviour
     public Vector3 Position { get { return transform.localPosition; } }
     public HexCell PathFrom { get; set; }
     public HexCell NextWithSamePriority { get; set; }
+    public HexUnit Unit { get; set; }
     public bool HasIncomingRiver { get { return hasIncomingRiver; } }
     public bool HasOutgoingRiver { get { return hasOutgoingRiver; } }
     public bool HasRiver { get { return hasIncomingRiver || hasOutgoingRiver; } }
@@ -428,12 +429,15 @@ public class HexCell : MonoBehaviour
                     neighbor.chunk.Refresh();
                 }
             }
+
+            if(Unit) Unit.ValidateLocation();
         }
     }
 
     void RefreshSelfOnly()
     {
         chunk.Refresh();
+        if (Unit) Unit.ValidateLocation();
     }
 
     void RefreshPosition()
