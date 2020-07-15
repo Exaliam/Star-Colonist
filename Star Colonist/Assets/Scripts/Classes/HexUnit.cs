@@ -13,11 +13,14 @@ public class HexUnit : MonoBehaviour
 
         set
         {
+            if (location) location.Unit = null;
             location = value;
             value.Unit = this;
             transform.localPosition = value.Position;
         }
     }
+
+    public bool IsValidDestination (HexCell cell) { return !cell.IsUnderwater && !cell.Unit; }
 
     public float Orientation
     {
