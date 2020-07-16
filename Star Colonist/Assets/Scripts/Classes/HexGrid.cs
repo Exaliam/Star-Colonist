@@ -307,7 +307,7 @@ public class HexGrid : MonoBehaviour
                 current = current.PathFrom;
             }
 
-            currentPathTo.DisableHighlight();
+            current.DisableHighlight();
             currentPathExists = false;
         }
         else if (currentPathFrom)

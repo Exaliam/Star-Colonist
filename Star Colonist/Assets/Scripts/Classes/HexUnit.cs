@@ -36,13 +36,6 @@ public class HexUnit : MonoBehaviour
     HexCell location;
     float orientation;
 
-    public static void Load(BinaryReader reader, HexGrid grid)
-    {
-        HexCoordinates coordinates = HexCoordinates.Load(reader);
-        float orientation = reader.ReadSingle();
-        grid.AddUnit(Instantiate(unitPrefab), grid.GetCell(coordinates), orientation);
-    }
-
     public void Die()
     {
         location.Unit = null;
@@ -58,5 +51,12 @@ public class HexUnit : MonoBehaviour
     {
         location.coordinates.Save(writer);
         writer.Write(orientation);
+    }
+
+    public static void Load(BinaryReader reader, HexGrid grid)
+    {
+        HexCoordinates coordinates = HexCoordinates.Load(reader);
+        float orientation = reader.ReadSingle();
+        grid.AddUnit(Instantiate(unitPrefab), grid.GetCell(coordinates), orientation);
     }
 }
