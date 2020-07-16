@@ -1,2 +1,31 @@
 Base path: 'C:/Program Files/Unity/Hub/Editor/2019.4.2f1/Editor/Data', plugins path 'C:/Program Files/Unity/Hub/Editor/2019.4.2f1/Editor/Data/PlaybackEngines'
 Cmd: initializeCompiler
+Cmd: preprocess
+  insize=1705 outsize=1230 ok=1
+Cmd: preprocess
+  error: 2 plat 4 at (25): undeclared identifier '_HexCellData_TexelSixe'
+  insize=1393 outsize=2127 ok=0
+Cmd: preprocess
+  error: 2 plat 21 at (2): failed to open source file: 'HLSLSupport.cginc'
+  error: 2 plat 21 at (6): failed to open source file: 'UnityShaderVariables.cginc'
+  error: 2 plat 21 at (7): failed to open source file: 'UnityShaderUtilities.cginc'
+  error: 2 plat 21 at (8): failed to open source file: 'Lighting.cginc'
+  error: 2 plat 21 at (9): failed to open source file: 'UnityPBSLighting.cginc'
+  error: 2 plat 21 at (10): failed to open source file: 'UnityCG.cginc'
+  error: 2 plat 21 at (11): failed to open source file: 'Lighting.cginc'
+  error: 2 plat 21 at (12): failed to open source file: 'UnityPBSLighting.cginc'
+  error: 2 plat 21 at (22): failed to open source file: '../HexCellData.cginc'
+  error: 2 plat 21 at (23): Unexpected identifier "UNITY_DECLARE_TEX2DARRAY". Expected one of: typedef const void inline uniform nointerpolation extern shared static volatile row_major column_major struct sampler or a user-defined type
+  insize=1798 outsize=1234 ok=0
+Cmd: preprocess
+  error: 2 plat 21 at (2): failed to open source file: 'HLSLSupport.cginc'
+  error: 2 plat 21 at (6): failed to open source file: 'UnityShaderVariables.cginc'
+  error: 2 plat 21 at (7): failed to open source file: 'UnityShaderUtilities.cginc'
+  error: 2 plat 21 at (8): failed to open source file: 'Lighting.cginc'
+  error: 2 plat 21 at (9): failed to open source file: 'UnityPBSLighting.cginc'
+  error: 2 plat 21 at (10): failed to open source file: 'UnityCG.cginc'
+  error: 2 plat 21 at (11): failed to open source file: 'Lighting.cginc'
+  error: 2 plat 21 at (12): failed to open source file: 'UnityPBSLighting.cginc'
+  error: 2 plat 21 at (22): failed to open source file: 'HexCellData.cginc'
+  error: 2 plat 21 at (23): Unexpected identifier "UNITY_DECLARE_TEX2DARRAY". Expected one of: typedef const void inline uniform nointerpolation extern shared static volatile row_major column_major struct sampler or a user-defined type
+  insize=1795 outsize=1231 ok=0

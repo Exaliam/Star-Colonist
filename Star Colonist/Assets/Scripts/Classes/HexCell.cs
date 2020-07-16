@@ -9,11 +9,12 @@ public class HexCell : MonoBehaviour
 {
     public HexCoordinates coordinates;
     public RectTransform uiRect;
-    public HexGridChunk chunk;public HexCell GetNeighbor(HexDirection direction) { return neighbors[(int)direction]; }
+    public HexGridChunk chunk; public HexCell GetNeighbor(HexDirection direction) { return neighbors[(int)direction]; }
     public Vector3 Position { get { return transform.localPosition; } }
     public HexCell PathFrom { get; set; }
     public HexCell NextWithSamePriority { get; set; }
     public HexUnit Unit { get; set; }
+    public HexCellShaderData ShaderData { get; set; }
     public bool HasIncomingRiver { get { return hasIncomingRiver; } }
     public bool HasOutgoingRiver { get { return hasOutgoingRiver; } }
     public bool HasRiver { get { return hasIncomingRiver || hasOutgoingRiver; } }
@@ -65,6 +66,7 @@ public class HexCell : MonoBehaviour
     public int SearchHeuristic { get; set; }
     public int SearchPriority { get { return distance + SearchHeuristic; } }
     public int SearchPhase { get; set; }
+    public int Index { get; set; }
 
     public int Elevation
     {
@@ -180,7 +182,7 @@ public class HexCell : MonoBehaviour
             if(terrainTypeIndex != value)
             {
                 terrainTypeIndex = value;
-                Refresh();
+                ShaderData.RefreshTerrain(this);
             }
         }
     }
@@ -365,6 +367,7 @@ public class HexCell : MonoBehaviour
     public void Load (BinaryReader reader)
     {
         terrainTypeIndex = reader.ReadByte();
+        ShaderData.RefreshTerrain(this);
         elevation = reader.ReadByte();
         waterLevel = reader.ReadByte();
         urbanLevel = reader.ReadByte();
