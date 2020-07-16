@@ -7,6 +7,11 @@ public class HexUnit : MonoBehaviour
 {
     public static HexUnit unitPrefab;
 
+    private void OnEnable()
+    {
+        if (location) transform.localPosition = location.Position;
+    }
+
     public HexCell Location
     {
         get { return location; }
@@ -34,7 +39,25 @@ public class HexUnit : MonoBehaviour
     }
 
     HexCell location;
+    List<HexCell> pathToTravel;
+    const float travelSpeed = 4f;
     float orientation;
+
+    private void OnDrawGizmos()
+    {
+        if (pathToTravel == null || pathToTravel.Count == 0) return;
+
+        for (int i = 1; i < pathToTravel.Count; i++)
+        {
+            Vector3 a = pathToTravel[i - 1].Position;
+            Vector3 b = pathToTravel[i].Position;
+
+            for (float t = 0f; t < 1f; t += 0.1f)
+            {
+                Gizmos.DrawSphere(Vector3.Lerp(a, b, t), 2f);
+            }
+        }
+    }
 
     public void Die()
     {
@@ -45,6 +68,29 @@ public class HexUnit : MonoBehaviour
     public void ValidateLocation()
     {
         transform.localPosition = location.Position;
+    }
+
+    public void Travel(List<HexCell> path)
+    {
+        Location = path[path.Count - 1];
+        pathToTravel = path;
+        StopAllCoroutines();
+        StartCoroutine(TravelPath());
+    }
+
+    IEnumerator TravelPath()
+    {
+        for (int i = 1; i < pathToTravel.Count; i++)
+        {
+            Vector3 a = pathToTravel[i - 1].Position;
+            Vector3 b = pathToTravel[i].Position;
+
+            for (float t = 0f; t < 1f; t += Time.deltaTime * travelSpeed)
+            {
+                transform.localPosition = Vector3.Lerp(a, b, t);
+                yield return null;
+            }
+        }
     }
 
     public void Save(BinaryWriter writer)
